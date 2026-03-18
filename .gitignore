@@ -1,0 +1,42 @@
+# Built artifacts
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Build directories
+/build
+/app/build
+/output
+
+# Gradle
+.gradle/
+gradle/wrapper/gradle-wrapper.jar
+local.properties
+*.iml
+
+# Android Studio / IntelliJ IDEA
+/.idea/
+.idea/
+*.iws
+
+# Keystore / signing (never commit these)
+*.jks
+*.keystore
+keystore.properties
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Proguard
+/proguard/
+
+# Test results
+/app/src/test/results/
+/app/src/androidTest/results/
+
+# DataStore / Room local databases (emulator-only, not source)
+*.db
+*.db-shm
+*.db-wal
