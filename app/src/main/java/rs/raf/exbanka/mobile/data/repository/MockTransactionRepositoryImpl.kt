@@ -79,4 +79,9 @@ class MockTransactionRepositoryImpl @Inject constructor() : TransactionRepositor
             )
         )
     }
+
+    override suspend fun verifyAction(id: String, code: String): NetworkResult<Unit> {
+        delay(600)
+        return NetworkResult.Success(Unit)
+    }
 }

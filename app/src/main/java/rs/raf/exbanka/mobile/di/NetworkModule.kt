@@ -9,7 +9,13 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import rs.raf.exbanka.mobile.BuildConfig
+import rs.raf.exbanka.mobile.data.remote.api.AccountApi
 import rs.raf.exbanka.mobile.data.remote.api.AuthApi
+import rs.raf.exbanka.mobile.data.remote.api.CardApi
+import rs.raf.exbanka.mobile.data.remote.api.CreditApi
+import rs.raf.exbanka.mobile.data.remote.api.ExchangeApi
+import rs.raf.exbanka.mobile.data.remote.api.FundApi
+import rs.raf.exbanka.mobile.data.remote.api.OtcApi
 import rs.raf.exbanka.mobile.data.remote.api.TransactionApi
 import rs.raf.exbanka.mobile.data.remote.interceptor.AuthInterceptor
 import java.util.concurrent.TimeUnit
@@ -85,4 +91,34 @@ object NetworkModule {
     @Singleton
     fun provideTransactionApi(@BankRetrofit retrofit: Retrofit): TransactionApi =
         retrofit.create(TransactionApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideCardApi(@BankRetrofit retrofit: Retrofit): CardApi =
+        retrofit.create(CardApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideAccountApi(@BankRetrofit retrofit: Retrofit): AccountApi =
+        retrofit.create(AccountApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideExchangeApi(@BankRetrofit retrofit: Retrofit): ExchangeApi =
+        retrofit.create(ExchangeApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideCreditApi(@BankRetrofit retrofit: Retrofit): CreditApi =
+        retrofit.create(CreditApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideOtcApi(@BankRetrofit retrofit: Retrofit): OtcApi =
+        retrofit.create(OtcApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideFundApi(@BankRetrofit retrofit: Retrofit): FundApi =
+        retrofit.create(FundApi::class.java)
 }

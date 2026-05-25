@@ -23,4 +23,12 @@ interface TransactionRepository {
      * needs to be updated — this interface and the ViewModel remain unchanged.
      */
     suspend fun approveTransaction(id: String): NetworkResult<VerificationCode>
+
+    /**
+     * Verify the action with the previously issued code.
+     * Used by Quick Approve to finalize approval directly from the mobile app
+     * without typing the code on the laptop.
+     * Backend: POST /bank/client/pending-actions/{id}/verify
+     */
+    suspend fun verifyAction(id: String, code: String): NetworkResult<Unit>
 }
