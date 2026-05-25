@@ -1,12 +1,14 @@
 package rs.raf.exbanka.mobile.data.remote.api
 
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 import rs.raf.exbanka.mobile.data.remote.dto.ApproveResponseDto
 import rs.raf.exbanka.mobile.data.remote.dto.PendingTransactionsResponseDto
 import rs.raf.exbanka.mobile.data.remote.dto.SingleTransactionResponseDto
+import rs.raf.exbanka.mobile.data.remote.dto.VerifyActionRequestDto
 
 /**
  * Konekcija na bank-service (BANK_BASE_URL).
@@ -37,4 +39,16 @@ interface TransactionApi {
      */
     @POST("bank/transactions/{id}/approve")
     suspend fun approveTransaction(@Path("id") id: String): Response<ApproveResponseDto>
+
+    /**
+     * POST /bank/client/pending-actions/{id}/verify
+     * Verifikuje 6-cifreni kod i izvršava akciju. Koristi se za Quick Approve
+     * gde mobilna aplikacija sama unosi kod koji je dobila iz approve odgovora,
+     * pa se akcija završi bez kucanja na laptopu.
+     */
+    @POST("bank/client/pending-actions/{id}/verify")
+    suspend fun verifyAction(
+        @Path("id") id: String,
+        @Body body: VerifyActionRequestDto
+    ): Response<Unit>
 }

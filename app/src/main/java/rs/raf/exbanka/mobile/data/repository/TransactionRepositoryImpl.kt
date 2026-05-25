@@ -1,6 +1,7 @@
 package rs.raf.exbanka.mobile.data.repository
 
 import rs.raf.exbanka.mobile.data.remote.api.TransactionApi
+import rs.raf.exbanka.mobile.data.remote.dto.VerifyActionRequestDto
 import rs.raf.exbanka.mobile.domain.model.Transaction
 import rs.raf.exbanka.mobile.domain.model.VerificationCode
 import rs.raf.exbanka.mobile.domain.repository.TransactionRepository
@@ -43,6 +44,25 @@ class TransactionRepositoryImpl @Inject constructor(
                 }
             } else {
                 NetworkResult.Error("Greška pri učitavanju zahteva (${response.code()})", response.code())
+            }
+        } catch (e: Exception) {
+            NetworkResult.Error(e.message ?: "Greška mreže")
+        }
+    }
+
+    override suspend fun verifyAction(id: String, code: String): NetworkResult<Unit> {
+        return try {
+            val response = transactionApi.verifyAction(id, VerifyActionRequestDto(code))
+            if (response.isSuccessful) {
+                NetworkResult.Success(Unit)
+            } else {
+                val errorMsg = when (response.code()) {
+                    400 -> "Neispravan ili istekao kod"
+                    404 -> "Zahtev nije pronađen"
+                    409 -> "Zahtev je već obrađen"
+                    else -> "Greška pri verifikaciji (${response.code()})"
+                }
+                NetworkResult.Error(errorMsg, response.code())
             }
         } catch (e: Exception) {
             NetworkResult.Error(e.message ?: "Greška mreže")
