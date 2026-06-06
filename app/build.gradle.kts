@@ -21,10 +21,11 @@ android {
             useSupportLibrary = true
         }
 
-        // user-service (auth: login, profile)
-        buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8082/\"")
-        // bank-service (transactions, pending actions, limit verification)
-        buildConfigField("String", "BANK_BASE_URL", "\"http://10.0.2.2:8083/\"")
+        // Deployovani backend (preko nginx /api). Za lokalni emulator vrati 10.0.2.2:8082 / :8083.
+        // user-service (auth: login, profile) — nginx /api/* → user-service
+        buildConfigField("String", "BASE_URL", "\"https://exbanka-2.radenkovic.rs/api/\"")
+        // bank-service (transakcije, pending akcije, verifikacija) — nginx /api/bank/* → bank-service
+        buildConfigField("String", "BANK_BASE_URL", "\"https://exbanka-2.radenkovic.rs/api/\"")
     }
 
     buildTypes {
